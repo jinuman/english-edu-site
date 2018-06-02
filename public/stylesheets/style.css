@@ -5,3 +5,9 @@
 .container{
     font-family: musictime;
 }
+.navbar-nav {
+    padding-left: 80px;
+}
+.menu {
+    padding-left: 60px;
+}
