@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>English Education with images</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-awusxf8AUojygHf2+joICySzB780jVvQaVCAt1clU3QsyAitLGul28Qxb2r1e5g+"
+          crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+
+</head>
+<body>
+<style type="text/css">
+    .jumbotron {
+        position: relative;
+        background-image: url('/images/sky.jpg');
+        background-size: cover;
+        color: royalblue;
+    }
+</style>
+<div class="container" style="padding-top: 10px;">
+    <div class="jumbotron">
+        <p class="text-center" style="font-family:musictime;font-size:10rem;font-weight:bold;">
+            English Education Site
+        </p>
+        <div class="text-center" style="font-family:'Nanum Pen Script OTF'; font-size:300%;">
+            이미지를 활용한 영어교육 사이트
+        </div>
+    </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">홈으로</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="acitve">
+                        <a href="/">학습하기</a>
+                    </li>
+                    <li>
+                        <a href="#">사람들의 사진첩</a>
+                    </li>
+                    <li>
+                        <a href="#">나의 사진첩</a>
+                    </li>
+                    <li>
+                        <a href="#">채팅하기</a>
+                    </li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <%# if(isLogin){ %>
+                    <!--<li><a href="/account/logout"-->
+                    <!--onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a>-->
+                    <!--</li>-->
+                    <%# } else { %>
+                    <!--<li><a href="/account/signup">로그인</a></li>-->
+                    <li><a href="#">로그인</a></li>
+                    <!--<li><a href="/account/login">회원가입</a></li>-->
+                    <li><a href="#">회원가입</a></li>
+                    <%# }%>
+                </ul>
+            </div>
+        </div>
+    </nav>
