@@ -1,0 +1,91 @@
+<% include ../header.ejs %>
+
+<div class="container show-grid">
+    <form id="uploadForm" method="post" enctype="multipart/form-data" action="">
+        <div class="col-md-6 container-fluid" style="float:left;">
+            <p>
+                <img id="blah" class="img-fluid img-thumbnail" src="uploads/default.jpg"
+                     style="width: 100%; height: 400px;">
+            </p>
+
+        </div>
+        <div class="col-md-6">
+            머신러닝으로 도출된 정답
+            <textarea class="form-control" name="" id="answer" rows="5"
+                      style="border:2px solid deepskyblue;
+                      margin-top:10px;padding-left: 20px; padding-top: 10px;">
+
+            </textarea>
+            입력
+            <textarea class="form-control" name="" id="" rows="5"
+                      style="border:2px solid mediumpurple;
+                      margin-top:10px;padding-left: 20px; padding-top: 10px">
+
+            </textarea>
+            <br>
+            <div style="float:right">
+                <label class="btn btn-primary btn-file">
+                    이미지추가 <input type="file" id="imgInput" name="thumbnail" style="display: none;">
+                </label>
+                <input type="submit" name="submit" value="전송" class="btn btn-default btn-success"
+                       style="margin-left:10px">
+                <button class="btn btn-info" style="margin-left:10px">저장</button>
+            </div>
+
+        </div>
+
+    </form>
+    <br>
+</div>
+<script type="text/javascript">
+
+    $(function() {
+        $("#imgInput").on('change', function(){
+            readURL(this);
+        });
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#uploadForm').submit(function () {
+            fileUpload();
+            return false;
+        });
+    });
+
+    function fileUpload() {
+        let files = $('#imgInput')[0].files;
+        upload(0);
+
+        function upload(i) {
+            let file = files[i];
+            $.ajax({
+                // 만약 다른 기기에서 전송한다면 이 주소로 전송!
+                url: '/learn/api/photo',
+                data: file,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $('#answer').text(data);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    }
+</script>
+
+<% include ../footer.ejs %>

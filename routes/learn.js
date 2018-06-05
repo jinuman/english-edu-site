@@ -15,7 +15,7 @@ let upload = multer({
 });
 
 router.get('/', (req, res) => {
-    res.render('index');
+    res.render('learn/learnForm');
 });
 
 router.post('/api/photo', (req, res) => {
