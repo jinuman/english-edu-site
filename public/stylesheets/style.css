@@ -2,7 +2,7 @@
     font-family: 'musictime';
     src: url("../fonts/musictime.ttf");
 }
-.container{
+.container-fluid{
     font-family: musictime;
 }
 .navbar-nav {
