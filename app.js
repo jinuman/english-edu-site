@@ -5,6 +5,25 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 
+/** DB setting */
+// mongodb connect
+const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
+
+// Database: create english-edu database and connect
+const databaseUrl = 'mongodb://localhost:27017/english-edu';
+const connect = mongoose.connect(databaseUrl,
+    {useMongoClient: true}
+);
+// automatically increase primary key
+autoIncrement.initialize(connect);
+
+const db = mongoose.connection;
+db.on('error', console.error);
+db.once('open', () => {
+    console.log('mongodb connection success!');
+});
+
 // Router
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
