@@ -84,6 +84,7 @@ def main(_):
                 # f.close()
                 # print("  %d) %s (p=%f)" % (i, sentence, math.exp(caption.logprob)))
                 if i == 0:
+                    sentence = sentence.strip()
                     print(sentence)
 
 if __name__ == "__main__":

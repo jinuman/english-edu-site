@@ -25,8 +25,7 @@ db.once('open', () => {
 });
 
 // Router
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const learnRouter = require('./routes/learn');
 
 const app = express();
 
@@ -47,8 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('uploads'));
 
 // Routing
-app.use('/learn', indexRouter);
-app.use('/users', usersRouter);
+app.use('/learn', learnRouter);
 
 
 // catch 404 and forward to error handler
