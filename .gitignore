@@ -2,6 +2,7 @@
 .idea/
 package-lock.json
 uploads/[0-9]*.jpg
+uploads/image-*.jpg
 
 # Logs
 logs
