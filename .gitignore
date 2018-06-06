@@ -1,7 +1,7 @@
 # User-defined
 .idea/
 package-lock.json
-uploads/*.jpg
+uploads/[0-9]*.jpg
 
 # Logs
 logs
