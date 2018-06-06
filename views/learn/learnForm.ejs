@@ -17,22 +17,26 @@
 
             이미지에 대한 설명을 작성해보세요 ↓
             <textarea class="form-control" name="" id="" rows="3"
-                      style="border:2px solid mediumpurple;font-size: 200%;
+                      style="border:2px solid lightpink;font-size: 200%;
                       margin-top:10px;padding-left: 20px; padding-top: 10px"></textarea>
             <br>
             <div style="float:right">
                 <label class="btn btn-primary btn-file">
                     이미지추가 <input type="file" id="imgInput" name="thumbnail" style="display: none;">
+                    <% if(image.thumbnail){ %>
+                    <a href="/uploads/<%= image.thumbnail %>"
+                       target="_blank">업로드 이미지 보기</a>
+                    <% } %>
                 </label>
-                <input type="submit" name="submit" value="전송" class="btn btn-default btn-success"
-                       style="margin-left:10px">
+
+                <button class="btn btn-success" style="margin-left:10px" id="trans">전송</button>
                 <button class="btn btn-warning" style="margin-left:10px" id="hint">힌트더보기</button>
                 <button class="btn btn-danger" style="margin-left:10px" id="all">전체보기</button>
-                <button class="btn btn-info" style="margin-left:10px" id="save">저장</button>
+                <!--<button class="btn btn-info" style="margin-left:10px" id="save">저장</button>-->
+                <input type="submit" name="submit" value="저장" class="btn btn-default btn-info"
+                       style="margin-left:10px">
             </div>
-
         </div>
-
     </form>
     <br>
 </div>
@@ -57,40 +61,115 @@
 </script>
 <script>
     $(document).ready(function () {
-        $('#uploadForm').submit(function () {
-            fileUpload();
+        $('#trans').click(function () {
+            // fileUpload();
+            upload(0);
             return false;
         });
     });
 
-    function fileUpload() {
+    function upload(i) {
         let files = $('#imgInput')[0].files;
-        upload(0);
+        let file = files[i];
+        $.ajax({
+            // if 다른 기기에서 전송한다면 이 주소로 전송!
+            url: '/learn/api/photo',
+            data: file,
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            success: function (wow) {
+                $('#answer').val(wow.before);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
 
-        function upload(i) {
-            let file = files[i];
-            $.ajax({
-                // if 다른 기기에서 전송한다면 이 주소로 전송!
-                url: '/learn/api/photo',
-                data: file,
-                type: 'POST',
-                processData: false,
-                contentType: false,
-                success: function (wow) {
-                    $('#answer').val(wow.before);
-                    // console.log('wow', result);
-                    $("#hint").click(function () {
-                        $('#answer').val(wow.hint1);
-                    });
-                    $("#all").click(function () {
-                        $('#answer').val(wow.fullStr);
-                    });
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
-        }
+
+</script>
+<script>
+    let cnt = 0;
+    $(document).ready(function () {
+        $('#hint').click(function () {
+            if (cnt === 0) {
+                cnt = cnt + 1;
+                hint1();
+            } else if (cnt === 1) {
+                cnt = cnt + 1;
+                hint2();
+            } else if (cnt === 2) {
+                cnt = cnt + 1;
+                hint3();
+            } else if (cnt >= 3) {
+                alert('힌트 더보기는 끝났습니다.');
+            }
+            return false;
+        })
+    });
+
+    function hint1() {
+        $.ajax({
+            url: '/learn/api/hint',
+            // data: ,
+            type: 'GET',
+            success: function (data) {
+                $('#answer').val(data.hint1);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    }
+
+    function hint2() {
+        $.ajax({
+            url: '/learn/api/hint',
+            // data: ,
+            type: 'GET',
+            success: function (data) {
+                $('#answer').val(data.hint2);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    }
+
+    function hint3() {
+        $.ajax({
+            url: '/learn/api/hint',
+            // data: ,
+            type: 'GET',
+            success: function (data) {
+                $('#answer').val(data.hint3);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('#all').click(function () {
+            seeAll();
+            return false;
+        })
+    });
+
+    function seeAll() {
+        $.ajax({
+            url: '/learn/api/all',
+            type: 'GET',
+            success: function (data) {
+                $('#answer').val(data.fullStr);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
     }
 </script>
 

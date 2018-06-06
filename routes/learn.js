@@ -11,32 +11,34 @@ let filename = 1;
 //이미지 저장되는 위치 설정
 let uploadDir = path.join(__dirname, '../uploads/');
 
-let storage = multer.diskStorage({
-    destination: function (req, file, callback) { //이미지가 저장되는 도착지 지정
-        callback(null, uploadDir);
-    },
-    filename: function (req, file, callback) { // image-날짜.jpg(png) 저장
-        callback(null, 'image-' + Date.now() +
-            '.' + file.mimetype.split('/')[1]);
-    }
-});
+// let storage = multer.diskStorage({
+//     destination: function (req, file, callback) { //이미지가 저장되는 도착지 지정
+//         callback(null, uploadDir);
+//     },
+//     filename: function (req, file, callback) { // image-날짜.jpg(png) 저장
+//         callback(null, 'image-' + Date.now() + '.jpg');
+//     }
+// });
 
 //multer setting
 let upload = multer({
-    storage: storage,
+    // storage: storage,
     limits: {   // 파일 제한: 10개, 1G
         files: 10,
-        filesize: 1024 * 1024 * 1024
+        filesize: 5 * 1024 * 1024
     },
-    // dest: uploadDir
+    dest: uploadDir
 });
 
 router.get('/', (req, res) => {
-    res.render('learn/learnForm');
+    ImageModel.find((err, imageshello) => {
+        res.render('learn/learnForm', {image: imageshello});
+    });
 });
 
 // DB에 저장
-router.post('/', (req, res) => {
+router.post('/', upload.single('thumbnail'), (req, res) => {
+    // console.log(req.file);
     let image = new ImageModel({
         thumbnail: (req.file) ? req.file.filename : "",
         answer: req.body.answer,
@@ -48,7 +50,13 @@ router.post('/', (req, res) => {
     });
 });
 
-
+let result = {
+    before: "", // 처음 보여주는 문장
+    hint1: "",  // 힌트더보기 한번 클릭 시
+    hint2: "",  // 힌트더보기 두번 클릭 시
+    hint3: "",  // 힌트더보기 세번 클릭 시
+    fullStr: "" // 풀 문장
+}
 // ajax request part and deep learning
 router.post('/api/photo', (req, res) => {
 
@@ -146,7 +154,7 @@ router.post('/api/photo', (req, res) => {
             }
             console.log('final@@', randomNum);
 
-            let result = {
+            result = {
                 before: str[0], // 처음 보여주는 문장
                 hint1: str[1],  // 힌트더보기 한번 클릭 시
                 hint2: str[2],  // 힌트더보기 두번 클릭 시
@@ -159,9 +167,17 @@ router.post('/api/photo', (req, res) => {
             res.send(result);  // wow 로 넘어간다.
         });
     });
-// }
+});
 
+// 힌트 더보기
+router.get('/api/hint', (req, res) => {
+    res.send(result);
+});
+
+// 전체보기
+router.get('/api/all', (req, res) => {
+    res.send(result);
 })
-;
+
 
 module.exports = router;
