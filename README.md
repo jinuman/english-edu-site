@@ -2,7 +2,7 @@
 
 ### 개요
 - 이미지로 배우는 새로운 방식의 영어교육 플랫폼
-- 이미지는 하나의 상황이라고 할 수 있고, 그 상황을 영어로 설명할 수 있는 능력 배양
+- 이미지는 하나의 상황이라고 할 수 있고, 그 상황을 영어로 설명하는 연습을 통해 영어 능력 향상
 - Deep Learning(im2txt model - Show and Tell), Web Server(nodejs)
 
 ---
@@ -22,7 +22,6 @@
 7. Install tensorflow 1.0
 8. npm install
 9. npm start
-8. 혹시 안된다면 new_checkpoint_saver.py를 실행하고 다시 run
 ```
 혹시 잘 안되시면 Issues 란에 글 남겨주세요.
 If it doesn't work well, please create an issue for the project.
