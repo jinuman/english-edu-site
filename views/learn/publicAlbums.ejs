@@ -1,23 +1,39 @@
 <% include ../header.ejs %>
 <div class="container" id="masonry_container">
+
     <% images.forEach(function(image){ %>
     <div class="masonry-grid">
+        <!--<a href="/images/<%#= image.id %>">-->
         <% if(image.thumbnail){ %>
-        <img src="/uploads/<%=image.thumbnail %>">
+        <img src="/uploads/<%= image.thumbnail %>">
         <% } %>
-        <p>
+        <div>
             <!--<%#= image.title %><br/>-->
             created at <%= image.username %>(
             <%= image.getDate.year %>.
             <%= image.getDate.month %>.
             <%= image.getDate.day %>
             )
-        </p>
+        </div>
+        <div class="textField">
+            <%= image.answer %>
+            <br>
+            <%= image.user_answer %>
+        </div>
+        <!--</a>-->
     </div>
     <% }); %>
 </div>
+<br><br><br>
+<p class="container text-center" style="font-size:120%">
+    <u><strong>순서 : 사진 → 정답 → 사용자입력</strong></u>
+</p>
+<br>
 <style type="text/css">
     .masonry-grid img {
+        max-width: 260px;
+    }
+    .textField {
         max-width: 260px;
     }
 </style>
