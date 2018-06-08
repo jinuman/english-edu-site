@@ -6,8 +6,8 @@ const fs = require('fs');
 const multer = require('multer');
 const path = require('path');
 
-
-let filename = 'image-' + Date.now() + '.jpg';
+// let filename = 'image-' + Date.now() + '.jpg';
+let filename = "";
 //이미지 저장되는 위치 설정
 let uploadDir = path.join(__dirname, '../uploads/');
 
@@ -68,7 +68,7 @@ let result = {
 }
 // ajax request part and deep learning
 router.post('/api/photo', (req, res) => {
-
+    filename = 'image-' + Date.now() + '.jpg';
     // if (done == true){
     // console.log(req.files); // undefined?? ajax라서
     let dst = path.join(uploadDir, filename); // IMAGE_FILE 경로
