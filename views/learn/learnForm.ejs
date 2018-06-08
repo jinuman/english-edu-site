@@ -4,37 +4,37 @@
     <form id="uploadForm" method="post" enctype="multipart/form-data" action="">
         <div class="col-md-6 container-fluid" style="float:left;">
             <p>
-                <img id="blah" class="img-fluid img-thumbnail" src="uploads/default.jpg"
+                <img id="blah" class="img-fluid img-thumbnail" src="/images/default.jpg"
+                     name="thumbnail"
                      style="width: 100%; height: 400px;">
             </p>
 
         </div>
         <div class="col-md-6">
             딥러닝으로 도출된 정답 ↓
-            <textarea class="form-control" name="" id="answer" rows="3"
+            <textarea class="form-control" name="answer" id="answer" rows="3"
                       style="border:2px solid deepskyblue;font-size: 200%;
-                      margin-top:10px;padding-left: 20px; padding-top: 10px;"></textarea>
+                      margin-top:10px;padding-left: 20px; padding-top: 10px;" value="<%=image.answer%>"></textarea>
 
             이미지에 대한 설명을 작성해보세요 ↓
-            <textarea class="form-control" name="" id="" rows="3"
+            <textarea class="form-control" name="user_answer" id="" rows="3"
                       style="border:2px solid lightpink;font-size: 200%;
-                      margin-top:10px;padding-left: 20px; padding-top: 10px"></textarea>
+                      margin-top:10px;padding-left: 20px; padding-top: 10px" value="<%=image.user_answer%>"></textarea>
             <br>
             <div style="float:right">
                 <label class="btn btn-primary btn-file">
                     이미지추가 <input type="file" id="imgInput" name="thumbnail" style="display: none;">
                     <% if(image.thumbnail){ %>
-                    <a href="/uploads/<%= image.thumbnail %>"
+                    <a href="/uploads/<%=image.thumbnail %>"
                        target="_blank">업로드 이미지 보기</a>
                     <% } %>
                 </label>
-
                 <button class="btn btn-success" style="margin-left:10px" id="trans">전송</button>
                 <button class="btn btn-warning" style="margin-left:10px" id="hint">힌트더보기</button>
                 <button class="btn btn-danger" style="margin-left:10px" id="all">전체보기</button>
                 <!--<button class="btn btn-info" style="margin-left:10px" id="save">저장</button>-->
                 <input type="submit" name="submit" value="저장" class="btn btn-default btn-info"
-                       style="margin-left:10px">
+                       style="margin-left:10px" onclick="return confirm('저장하시겠습니까?')">
             </div>
         </div>
     </form>
@@ -103,7 +103,7 @@
                 cnt = cnt + 1;
                 hint3();
             } else if (cnt >= 3) {
-                alert('힌트 더보기는 끝났습니다.');
+                alert('힌트 더보기가 끝나버렸습니다.\n전체보기 버튼을 눌러주세요');
             }
             return false;
         })

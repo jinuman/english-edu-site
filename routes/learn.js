@@ -7,32 +7,32 @@ const multer = require('multer');
 const path = require('path');
 
 
-let filename = 1;
+let filename = 'image-' + Date.now() + '.jpg';
 //이미지 저장되는 위치 설정
 let uploadDir = path.join(__dirname, '../uploads/');
 
-// let storage = multer.diskStorage({
-//     destination: function (req, file, callback) { //이미지가 저장되는 도착지 지정
-//         callback(null, uploadDir);
-//     },
-//     filename: function (req, file, callback) { // image-날짜.jpg(png) 저장
-//         callback(null, 'image-' + Date.now() + '.jpg');
-//     }
-// });
+let storage = multer.diskStorage({
+    destination: function (req, file, callback) { //이미지가 저장되는 도착지 지정
+        callback(null, uploadDir);
+    },
+    filename: function (req, file, callback) { // image-날짜.jpg(png) 저장
+        callback(null, filename);
+    }
+});
 
 //multer setting
 let upload = multer({
-    // storage: storage,
-    limits: {   // 파일 제한: 10개, 1G
-        files: 10,
+    storage: storage,
+    limits: {   // 파일 제한: 20개, 1G
+        files: 20,
         filesize: 5 * 1024 * 1024
     },
     dest: uploadDir
 });
 
 router.get('/', (req, res) => {
-    ImageModel.find((err, imageshello) => {
-        res.render('learn/learnForm', {image: imageshello});
+    ImageModel.find((err, image) => {
+        res.render('learn/learnForm', {image: image});
     });
 });
 
@@ -46,7 +46,16 @@ router.post('/', upload.single('thumbnail'), (req, res) => {
         // username : req.user.username //글 작성시 username에 접근
     });
     image.save((err) => {
-        // res.redirect('/learn/#');
+        res.redirect('/learn/albums');
+    });
+});
+
+// GET publicAlbums page
+router.get('/albums', (req, res) => {
+    ImageModel.find((err, images) => { //첫번째 인자는 err, 두번째는 받을 변수명
+        res.render('learn/publicAlbums',
+            {images: images} // DB에서 받은 images 를 imgaes 변수명으로 내보냄
+        );
     });
 });
 
@@ -62,7 +71,7 @@ router.post('/api/photo', (req, res) => {
 
     // if (done == true){
     // console.log(req.files); // undefined?? ajax라서
-    let dst = path.join(uploadDir, filename++ + ".jpg"); // IMAGE_FILE 경로
+    let dst = path.join(uploadDir, filename); // IMAGE_FILE 경로
     let ws = fs.createWriteStream(dst, {encoding: 'binary'});
     req.pipe(ws);
     ws.on("finish", () => {
@@ -153,7 +162,7 @@ router.post('/api/photo', (req, res) => {
                 }
             }
             console.log('final@@', randomNum);
-
+            // 전송 시 result 에 str[] 저장
             result = {
                 before: str[0], // 처음 보여주는 문장
                 hint1: str[1],  // 힌트더보기 한번 클릭 시
@@ -177,7 +186,6 @@ router.get('/api/hint', (req, res) => {
 // 전체보기
 router.get('/api/all', (req, res) => {
     res.send(result);
-})
-
+});
 
 module.exports = router;

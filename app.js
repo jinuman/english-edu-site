@@ -26,7 +26,6 @@ db.once('open', () => {
 
 // Router
 const learnRouter = require('./routes/learn');
-const albumsRouter = require('./routes/albums');
 
 const app = express();
 
@@ -48,7 +47,6 @@ app.use('/uploads', express.static('uploads'));
 
 // Routing
 app.use('/learn', learnRouter);
-app.use('/albums', albumsRouter);
 
 app.get('/', (req, res) => {
     res.redirect('/learn');
