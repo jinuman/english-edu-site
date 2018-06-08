@@ -24,8 +24,10 @@
 9. npm start
 ```
 혹시 잘 안되시면 Issues 란에 글 남겨주세요.
+
 If it doesn't work well, please create an issue for the project.
 
 ## 참고
 https://github.com/tensorflow/models
+
 https://github.com/KranthiGV/Pretrained-Show-and-Tell-model
