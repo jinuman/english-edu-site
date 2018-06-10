@@ -38,7 +38,7 @@
                 </label>
                 <button class="btn btn-success" id="trans">전송</button>
                 <button class="btn btn-warning" id="hint">힌트더보기</button>
-                <button class="btn btn-danger" id="all">전체보기</button>
+                <button class="btn btn-danger" id="all">정답확인</button>
                 <!--<button class="btn btn-info" style="margin-left:10px" id="save">저장</button>-->
                 <input type="submit" name="submit" value="저장" class="btn btn-default btn-info"
                        onclick="return confirm('저장하시겠습니까?')">
@@ -110,7 +110,7 @@
                 cnt = cnt + 1;
                 hint3();
             } else if (cnt >= 3) {
-                alert('힌트 더보기가 끝나버렸습니다.\n전체보기 버튼을 눌러주세요');
+                alert('힌트 더보기가 끝나버렸습니다.\n정답확인 버튼을 눌러서 정답을 확인하세요.');
             }
             return false;
         })

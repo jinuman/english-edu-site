@@ -81,7 +81,7 @@ router.post('/api/photo', (req, res) => {
 
             //Print stdout/stderr to console
             console.log('@@@@@@@@ 예측 시작.. @@@@@@@@\n');
-            // console.log('@# error? ' + stderr);
+            console.log('## tensorflow warning and error\n', stderr);
             console.log('!!러닝된 결과: ' + stdout);
             // console.log(typeof(stdout));
             let words = stdout.trim().split(' ');
