@@ -1,5 +1,12 @@
 <% include ../header.ejs %>
 
+<style>
+    .btn {
+        position: relative;
+        margin-left: 1rem;
+        margin-top: 1rem;
+    }
+</style>
 <div class="container show-grid">
     <form id="uploadForm" method="post" enctype="multipart/form-data" action="">
         <div class="col-md-6 container-fluid" style="float:left;">
@@ -29,12 +36,12 @@
                        target="_blank">업로드 이미지 보기</a>
                     <% } %>
                 </label>
-                <button class="btn btn-success" style="margin-left:10px" id="trans">전송</button>
-                <button class="btn btn-warning" style="margin-left:10px" id="hint">힌트더보기</button>
-                <button class="btn btn-danger" style="margin-left:10px" id="all">전체보기</button>
+                <button class="btn btn-success" id="trans">전송</button>
+                <button class="btn btn-warning" id="hint">힌트더보기</button>
+                <button class="btn btn-danger" id="all">전체보기</button>
                 <!--<button class="btn btn-info" style="margin-left:10px" id="save">저장</button>-->
                 <input type="submit" name="submit" value="저장" class="btn btn-default btn-info"
-                       style="margin-left:10px" onclick="return confirm('저장하시겠습니까?')">
+                       onclick="return confirm('저장하시겠습니까?')">
             </div>
         </div>
     </form>
